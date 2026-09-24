@@ -19,7 +19,13 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const url = process.env.KIKOE_SITE_URL ?? "https://builtbywally.github.io/kikoe";
+// The address link previews point at: KIKOE_SITE_URL if set, else the
+// production domain Vercel gives the build, else localhost for a local build.
+const url =
+  process.env.KIKOE_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
 const description =
   "Kikoe is an open-source desktop app for running Claude Code by voice. Talk to Kik; the agents do the work; the canvas shows what words can't carry.";
 

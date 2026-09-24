@@ -18,3 +18,12 @@ const info = await sharp(src)
   .webp({ quality: 72, effort: 6 })
   .toFile(join(out, "backdrop.webp"));
 console.log(`backdrop.webp ${info.width}×${info.height} ${(info.size / 1024).toFixed(0)} KB`);
+
+// The link-preview picture: the Room from the app README's images, cropped to
+// the 1200 × 630 that link previews use. Needs pnpm readme-images to have run.
+const room = join(kikoe, "docs/images/readme/room.webp");
+const og = await sharp(room)
+  .resize({ width: 1200, height: 630, fit: "cover", position: "top" })
+  .jpeg({ quality: 82, mozjpeg: true })
+  .toFile(join(here, "../public/og.jpg"));
+console.log(`og.jpg ${og.width}×${og.height} ${(og.size / 1024).toFixed(0)} KB`);
